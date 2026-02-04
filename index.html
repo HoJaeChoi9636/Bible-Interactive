@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hojae's Workspace</title>
+    
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+
+    <style>
+        /* 2. 전체적인 흑백 테마 설정 */
+        body {
+            font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
+            background-color: #ffffff; /* 완전한 흰색 배경 */
+            color: #111111; /* 완전한 검정보다 눈이 편한 아주 진한 회색 */
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* 3. 타이틀 디자인 (크고 얇게) */
+        header {
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 700; /* 굵게 */
+            letter-spacing: -0.5px; /* 자간을 살짝 좁혀서 세련되게 */
+            margin-bottom: 10px;
+            border-bottom: 2px solid #111; /* 밑줄 포인트 */
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        p {
+            font-size: 14px;
+            color: #666; /* 연한 회색 */
+            font-weight: 400;
+            margin-top: 0;
+        }
+
+        /* 4. 링크 목록 디자인 (선으로 구분) */
+        nav {
+            width: 100%;
+            max-width: 500px; /* 태블릿에서 너무 퍼지지 않게 폭 제한 */
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* 버튼 사이 간격 */
+        }
+
+        a {
+            display: flex;
+            justify-content: space-between; /* 글자와 화살표 양끝 배치 */
+            align-items: center;
+            padding: 20px 0; /* 위아래 여백만 줌 (선 느낌) */
+            text-decoration: none;
+            color: #111;
+            font-size: 16px;
+            font-weight: 500;
+            border-bottom: 1px solid #eee; /* 아주 연한 구분선 */
+            transition: all 0.3s ease; /* 부드러운 움직임 */
+        }
+
+        /* 링크에 마우스/손가락 올렸을 때 효과 */
+        a:hover {
+            border-bottom: 1px solid #111; /* 선이 진해짐 */
+            padding-left: 10px; /* 살짝 오른쪽으로 이동 */
+        }
+
+        /* 링크 옆에 작은 화살표 추가 */
+        a::after {
+            content: "→";
+            opacity: 0; /* 평소엔 안 보임 */
+            transition: all 0.3s ease;
+        }
+
+        a:hover::after {
+            opacity: 1; /* 마우스 올리면 보임 */
+            margin-right: 10px;
+        }
+
+        /* 준비중인 메뉴는 흐리게 처리 */
+        a.disabled {
+            color: #ccc;
+            pointer-events: none; /* 클릭 안 됨 */
+            border-bottom: 1px solid #fafafa;
+        }
+
+        /* 맨 아래 저작권 표시 */
+        footer {
+            margin-top: auto; /* 화면 맨 아래로 밀어내기 */
+            padding-top: 50px;
+            font-size: 12px;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>HOJAE CHOI</h1>
+        <p>Interaction Web Development Archive</p>
+    </header>
+
+    <nav>
+        <a href="./01_card-game/01_card-game_index.html">
+            <span>01. Word Card Game</span>
+        </a>
+
+        <a href="./02_bible-sea/02_bible-sea_index.html">
+            <span>02. Miracle of the Red Sea</span>
+            <small>Exodus 14:21</small>
+        </a>
+
+        <a href="./03_quiz-app/03_quiz-app_index.html">
+            <span>03. Drag and Drop</span>
+            <small>Korean sentence Quiz</small>
+        </a>
+
+        <a href="./04_todays-verse/04_todays-verse_index.html">
+            <span>04. Today's Verse</span>
+            <small>Pick up God's Word for you</small>
+        </a>
+
+        
+        <a href="#" class="disabled">
+            <span>05. Somthing</span>
+            <small>(Coming Soon)</small>
+        </a>
+    </nav>
+
+    <footer>
+        © 2026 Hojae Choi. All rights reserved.
+    </footer>
+
+</body>
+</html>
