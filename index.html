@@ -1,56 +1,56 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>호재의 성경 묵상</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Bible Interacive</title>
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/page-flip/dist/js/page-flip.browser.js"></script>
 </head>
 <body>
-
     <div class="desk">
-        <div class="bible-book">
-            
-            <div class="page left-page">
-                <div class="content">
-                    <h2>Old<br>Testament</h2>
-                    <div class="verse-link">
-                        <a href="./02_bible-sea/index.html">
-                            <span class="chapter">Exodus 14:21</span>
-                            <span class="title">홍해의 기적</span>
-                        </a>
-                    </div>
-                    <div class="verse-link disabled">
-                        <span class="chapter">Genesis 1:1</span>
-                        <span class="title">천지창조 (준비중)</span>
-                    </div>
+        <div id="bible-book">
+
+            <div class="my-page hard-cover">
+                <div class="cover-content">
+                    <h1>HOLY<br>BIBLE</h1>
+                    <p>호재의 묵상집</p>
+                    <small>클릭해서 펼쳐보세요</small>
                 </div>
-                <div class="shadow"></div>
             </div>
 
-            <div class="bookmark"></div>
-
-            <div class="page right-page">
+            <div class="my-page paper-page left-page">
                 <div class="content">
-                    <h2>New<br>Testament</h2>
-                    <div class="verse-link">
-                        <a href="./04_bible-card/index.html">
-                            <span class="chapter">Matthew 7:7</span>
-                            <span class="title">오늘의 말씀 뽑기</span>
-                        </a>
-                    </div>
-                    <div class="verse-link disabled">
-                        <span class="chapter">Acts 1:8</span>
-                        <span class="title">땅끝까지 (준비중)</span>
-                    </div>
+                    <h2>Old Testament</h2>
+                    <a href="./02_bible-sea/index.html" class="verse-link flip-trigger">
+                        <span class="chapter">Exodus 14:21</span>
+                        <span class="title">홍해의 기적 →</span>
+                    </a>
+                </div>
+                <span class="page-num">2</span>
+            </div>
+
+            <div class="my-page paper-page right-page">
+                <div class="content">
+                    <h2>New Testament</h2>
+                    <a href="./04_bible-card/index.html" class="verse-link flip-trigger">
+                        <span class="chapter">Matthew 7:7</span>
+                        <span class="title">오늘의 말씀 뽑기 →</span>
+                    </a>
+                </div>
+                 <span class="page-num">3</span>
+            </div>
+
+             <div class="my-page hard-cover">
+                <div class="cover-content">
+                    <p>Hojae's Archive</p>
                 </div>
             </div>
 
         </div>
-        
-        <p class="footer-text">© Hojae's Bible Archive</p>
     </div>
-
+    
+    <script src="script.js"></script>
 </body>
+
 </html>
