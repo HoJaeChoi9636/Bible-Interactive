@@ -98,5 +98,38 @@ body {
 .page.right {
     z-index: 4; /* 왼쪽 페이지 아래에 숨어있다가 */
     background: linear-gradient(to left, #e0d8c0, #fffbf0 20%);
+    
+    /* 중요: 오른쪽 페이지는 앞표지와 함께 움직이지 않고, 바닥에 고정 */
+    /* 다만 책이 열리는 효과를 위해, 실제로는 '표지'만 돌아가고 
+       왼쪽/오른쪽 페이지가 나란히 보이는 구조로 만듭니다. */
 }
-   
+
+/* 수정: 1페이지 책 넘김 효과를 위해 
+   왼쪽 페이지는 사실 앞표지의 뒷면이어야 자연스럽습니다.
+   하지만 구현을 쉽게 하기 위해, 표지가 열리면 
+   '왼쪽 페이지'와 '오른쪽 페이지'가 나란히 나타나도록 배치합니다. */
+
+/* 모바일/태블릿 대응 */
+@media (max-width: 768px) {
+    .scene {
+        width: 300px;
+        height: 450px;
+    }
+}
+
+/* 링크 스타일 */
+a {
+    text-decoration: none;
+    color: #333;
+    border-bottom: 1px solid #b71c1c;
+    padding-bottom: 5px;
+    font-weight: bold;
+    font-size: 1.2rem;
+    display: inline-block;
+    margin-top: 10px;
+    transition: color 0.3s;
+}
+a:hover { color: #b71c1c; }
+h2 { color: #5d4037; margin-bottom: 5px; }
+.chapter { font-size: 0.9rem; color: #888; font-weight: normal;}
+.pg-num { position: absolute; bottom: 20px; font-size: 0.8rem; color: #aaa; }
