@@ -3,138 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>호재의 성경 묵상 (자가진단)</title>
+    <title>호재의 성경 묵상</title>
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&display=swap" rel="stylesheet">
-    
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Nanum Myeongjo', serif;
-            background-color: #e8e0d5;
-            height: 100vh;
-            display: flex; /* 화면 중앙 정렬 */
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
-
-        /* 책상 (3D 공간) */
-        .desk {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            perspective: 1500px; /* 원근감 */
-        }
-
-        /* 낱장 페이지 디자인 */
-        .my-page {
-            background-color: #fffbf0;
-            border: 1px solid #d7ccc8;
-            overflow: hidden;
-        }
-
-        /* 표지 */
-        .hard-cover {
-            background-color: #5d4037;
-            color: #e8e0d5;
-            border: 4px solid #3e2723;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-        
-        .hard-cover h1 {
-            font-size: 2.5rem;
-            border-bottom: 2px solid #e8e0d5;
-            padding-bottom: 10px;
-        }
-
-        /* 내지 */
-        .paper-page {
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            text-align: center;
-        }
-
-        /* 링크 스타일 */
-        a {
-            display: block;
-            margin-top: 20px;
-            padding: 15px;
-            text-decoration: none;
-            color: #333;
-            border: 1px solid #ccc;
-            font-weight: bold;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="desk">
-        <div id="bible-book">
-            <div class="my-page hard-cover" data-density="hard">
-                <div>
+    <div class="scene">
+        <div class="book" id="bible-book">
+            <div class="cover front">
+                <div class="skin">
                     <h1>HOLY<br>BIBLE</h1>
-                    <p>클릭하여 펼치기</p>
+                    <p>호재의 묵상집</p>
+                    <small>Click to Open</small>
                 </div>
             </div>
-            
-            <div class="my-page paper-page">
-                <h2>Old Testament</h2>
-                <a href="./02_bible-sea/index.html">홍해의 기적 →</a>
-                <small>2 page</small>
+
+            <div class="page left">
+                <div class="content">
+                    <h2>Old Testament</h2>
+                    <a href="./02_bible-sea/index.html">
+                        <span class="chapter">Exodus 14:21</span>
+                        <br>홍해의 기적 →
+                    </a>
+                    <span class="pg-num">2</span>
+                </div>
             </div>
 
-            <div class="my-page paper-page">
-                <h2>New Testament</h2>
-                <a href="./04_bible-card/index.html">말씀 뽑기 →</a>
-                <small>3 page</small>
+            <div class="page right">
+                <div class="content">
+                    <h2>New Testament</h2>
+                    <a href="./04_bible-card/index.html">
+                        <span class="chapter">Matthew 7:7</span>
+                        <br>말씀 뽑기 →
+                    </a>
+                    <span class="pg-num">3</span>
+                </div>
             </div>
 
-            <div class="my-page hard-cover" data-density="hard">
-                <p>Hojae's Bible</p>
-            </div>
+            <div class="cover back"></div>
         </div>
     </div>
 
-   <script src="lib.js"></script>
-
-    <script>
-        // 에러가 나면 화면에 경고창을 띄우는 코드
-        try {
-            // 1. 라이브러리가 잘 왔는지 확인
-            if (typeof PageFlip === 'undefined') {
-                alert("🚨 비상! PageFlip 라이브러리를 불러오지 못했습니다. 인터넷 연결을 확인하거나 새로고침 해주세요.");
-            } else {
-                // 2. 책 만들기 시작
-                const pageFlip = new PageFlip.PageFlip(document.getElementById('bible-book'), {
-                    width: 350, // 페이지 너비
-                    height: 500, // 페이지 높이
-                    size: 'stretch', // 반응형 크기 조절
-                    minWidth: 300,
-                    maxWidth: 500,
-                    minHeight: 400,
-                    maxHeight: 700,
-                    showCover: true
-                });
-
-                // 3. HTML 페이지들을 책 속에 집어넣기
-                pageFlip.loadFromHTML(document.querySelectorAll('.my-page'));
-                
-                // 성공하면 알림 (테스트용 - 나중에 지우세요)
-                // alert("✅ 성공! 책이 만들어졌습니다.");
-            }
-
-        } catch (error) {
-            // 뭔가 문제가 생기면 그 이유를 알려줌
-            alert("❌ 에러 발생: " + error.message);
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>

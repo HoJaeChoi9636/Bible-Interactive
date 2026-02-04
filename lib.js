@@ -1,1 +1,0 @@
-Redirecting to /page-flip@2.0.7/dist/js/page-flip.browser.js

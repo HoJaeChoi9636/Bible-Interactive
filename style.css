@@ -1,4 +1,4 @@
-/* 전체 배경 및 폰트 설정 */
+/* 초기화 및 폰트 */
 body {
     margin: 0;
     padding: 0;
@@ -11,90 +11,90 @@ body {
     overflow: hidden;
 }
 
-.desk {
-    /* 3D 효과를 위한 원근감 설정 */
-    perspective: 1500px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+/* 3D 공간 설정 */
+.scene {
+    width: 400px;
+    height: 600px;
+    perspective: 1500px; /* 원근감 */
+}
+
+/* 책 전체 컨테이너 */
+.book {
     width: 100%;
     height: 100%;
+    position: relative;
+    transform-style: preserve-3d; /* 3D 효과 유지 */
+    transition: transform 1s ease-in-out;
+    cursor: pointer;
 }
 
-/* --- 여기서부터 핵심 --- */
-
-/* 낱장 페이지 공통 스타일 */
-.my-page {
-    background-color: #fffbf0; /* 기본 종이색 */
-    border: 1px solid #d7ccc8;
-    overflow: hidden;
-    /* 그림자는 라이브러리가 알아서 넣어주므로 뺍니다 */
+/* 책이 열렸을 때의 위치 조정 (약간 오른쪽으로 이동) */
+.book.is-open {
+    transform: translateX(50%); /* 책을 펼치면 중심이 이동하므로 보정 */
 }
 
-/* 딱딱한 표지 스타일 */
-.hard-cover {
+/* --- 표지 디자인 --- */
+.cover, .page {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    border-radius: 5px 15px 15px 5px;
+    transform-origin: left; /* 왼쪽(제본선)을 축으로 회전 */
+}
+
+/* 앞표지 (움직이는 부분) */
+.cover.front {
     background-color: #5d4037; /* 가죽색 */
-    color: #e8e0d5; /* 금박 글씨 느낌 */
+    color: #e8e0d5;
+    z-index: 10; /* 맨 위 */
+    transition: transform 1s cubic-bezier(0.645, 0.045, 0.355, 1); /* 부드러운 애니메이션 */
     border: 2px solid #3e2723;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
+    backface-visibility: hidden; /* 뒤집으면 뒷면이 안 보이게 */
 }
 
-.cover-content h1 {
+/* 책이 열리면 앞표지가 -180도 회전 */
+.book.is-open .cover.front {
+    transform: rotateY(-180deg);
+}
+
+.cover.front h1 {
     font-size: 3rem;
-    margin: 0;
-    letter-spacing: 5px;
     border-bottom: 2px solid #e8e0d5;
-    padding-bottom: 10px;
+    margin-bottom: 10px;
 }
 
-/* 종이 내지 스타일 */
-.paper-page {
-    padding: 40px;
+/* 뒷표지 (바닥) */
+.cover.back {
+    background-color: #3e2723;
+    z-index: 0;
+    box-shadow: 10px 10px 30px rgba(0,0,0,0.3); /* 그림자 */
+}
+
+/* --- 종이 페이지 디자인 --- */
+.page {
+    background-color: #fffbf0;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    position: relative;
+    align-items: center;
+    padding: 30px;
+    box-sizing: border-box;
+    border: 1px solid #d7ccc8;
 }
 
-/* 왼쪽 페이지 그라데이션 (가운데가 어둡게) */
-.left-page {
-    background: linear-gradient(to right, #fffbf0 90%, #e0d8c0 100%);
-}
-/* 오른쪽 페이지 그라데이션 (가운데가 어둡게) */
-.right-page {
-    background: linear-gradient(to left, #fffbf0 90%, #e0d8c0 100%);
-    text-align: right; /* 오른쪽 페이지는 우측 정렬 */
+/* 왼쪽 페이지 (앞표지 뒷면에 붙어있음 등) -> 여기선 바닥에 고정 */
+.page.left {
+    z-index: 5;
+    background: linear-gradient(to right, #e0d8c0, #fffbf0 20%); /* 그림자 효과 */
 }
 
-/* 링크 메뉴 디자인 */
-.verse-link {
-    text-decoration: none;
-    color: #333;
-    display: block;
-    padding: 20px 10px;
-    border-bottom: 1px solid #d7ccc8;
-    transition: all 0.3s;
-    cursor: pointer; /* 손가락 모양 */
-}
-
-.verse-link:hover {
-    background-color: rgba(183, 28, 28, 0.1); /* 마우스 올리면 붉은빛 */
-    padding-left: 20px; /* 살짝 이동 */
-    color: #b71c1c;
-}
-
-.chapter { display: block; font-size: 0.9rem; color: #8d6e63; margin-bottom: 5px;}
-.title { font-size: 1.4rem; font-weight: 800; }
-
-/* 페이지 번호 */
-.page-num {
-    position: absolute;
-    bottom: 20px;
-    font-size: 0.8rem;
-    color: #8d6e63;
-}
-.left-page .page-num { left: 20px; }
-.right-page .page-num { right: 20px; }
+/* 오른쪽 페이지 (신약) -> 책이 열리면 드러남 */
+.page.right {
+    z-index: 4; /* 왼쪽 페이지 아래에 숨어있다가 */
+    background: linear-gradient(to left, #e0d8c0, #fffbf0
