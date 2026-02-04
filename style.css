@@ -97,4 +97,6 @@ body {
 /* 오른쪽 페이지 (신약) -> 책이 열리면 드러남 */
 .page.right {
     z-index: 4; /* 왼쪽 페이지 아래에 숨어있다가 */
-    background: linear-gradient(to left, #e0d8c0, #fffbf0
+    background: linear-gradient(to left, #e0d8c0, #fffbf0 20%);
+}
+   
