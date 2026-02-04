@@ -1,9 +1,9 @@
-/* 초기화 및 폰트 */
+/* 기본 설정 */
 body {
     margin: 0;
     padding: 0;
     font-family: 'Nanum Myeongjo', serif;
-    background-color: #e8e0d5; /* 책상 색 */
+    background-color: #e8e0d5;
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -11,125 +11,111 @@ body {
     overflow: hidden;
 }
 
-/* 3D 공간 설정 */
 .scene {
-    width: 400px;
-    height: 600px;
+    width: 320px; /* 책 한 쪽 너비 */
+    height: 500px;
     perspective: 1500px; /* 원근감 */
 }
 
-/* 책 전체 컨테이너 */
 .book {
     width: 100%;
     height: 100%;
     position: relative;
-    transform-style: preserve-3d; /* 3D 효과 유지 */
+    /* 책이 열리면 전체를 오른쪽으로 살짝 이동 (중앙 정렬 맞추기 위해) */
     transition: transform 1s ease-in-out;
-    cursor: pointer;
 }
 
-/* 책이 열렸을 때의 위치 조정 (약간 오른쪽으로 이동) */
+/* 책이 열렸을 때 전체 위치 이동 */
 .book.is-open {
-    transform: translateX(50%); /* 책을 펼치면 중심이 이동하므로 보정 */
+    transform: translateX(50%); /* 책 중심을 오른쪽으로 이동 */
 }
 
-/* --- 표지 디자인 --- */
-.cover, .page {
+/* --- 1. 고정된 오른쪽 페이지 (신약) --- */
+.right-page {
     position: absolute;
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
-    border-radius: 5px 15px 15px 5px;
-    transform-origin: left; /* 왼쪽(제본선)을 축으로 회전 */
-}
-
-/* 앞표지 (움직이는 부분) */
-.cover.front {
-    background-color: #5d4037; /* 가죽색 */
-    color: #e8e0d5;
-    z-index: 10; /* 맨 위 */
-    transition: transform 1s cubic-bezier(0.645, 0.045, 0.355, 1); /* 부드러운 애니메이션 */
-    border: 2px solid #3e2723;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    backface-visibility: hidden; /* 뒤집으면 뒷면이 안 보이게 */
-}
-
-/* 책이 열리면 앞표지가 -180도 회전 */
-.book.is-open .cover.front {
-    transform: rotateY(-180deg);
-}
-
-.cover.front h1 {
-    font-size: 3rem;
-    border-bottom: 2px solid #e8e0d5;
-    margin-bottom: 10px;
-}
-
-/* 뒷표지 (바닥) */
-.cover.back {
-    background-color: #3e2723;
-    z-index: 0;
-    box-shadow: 10px 10px 30px rgba(0,0,0,0.3); /* 그림자 */
-}
-
-/* --- 종이 페이지 디자인 --- */
-.page {
     background-color: #fffbf0;
+    border: 1px solid #d7ccc8;
+    z-index: 1; /* 제일 아래 */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 30px;
-    box-sizing: border-box;
+    text-align: center;
+    border-radius: 0 10px 10px 0; /* 오른쪽 모서리 둥글게 */
+    box-shadow: inset 20px 0 30px rgba(0,0,0,0.05); /* 책 안쪽 그림자 */
+}
+
+/* --- 2. 움직이는 플리퍼 (표지+구약) --- */
+.flipper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    transform-origin: left; /* 왼쪽을 경첩으로 사용 */
+    transform-style: preserve-3d; /* 3D 효과 유지 */
+    transition: transform 1s cubic-bezier(0.645, 0.045, 0.355, 1);
+    z-index: 10;
+}
+
+/* 책이 열리면 플리퍼를 -180도 회전 */
+.book.is-open .flipper {
+    transform: rotateY(-180deg);
+}
+
+/* 플리퍼의 앞면 (갈색 표지) */
+.cover.front {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #5d4037;
+    color: #e8e0d5;
+    backface-visibility: hidden; /* 뒤집으면 안 보임 */
+    border-radius: 0 10px 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 2px solid #3e2723;
+    z-index: 2;
+}
+
+.cover.front h1 { font-size: 2.5rem; border-bottom: 2px solid #e8e0d5; padding-bottom: 10px; }
+
+/* 플리퍼의 뒷면 (왼쪽 페이지 - 구약) */
+.left-page {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #fffbf0;
+    transform: rotateY(180deg); /* 미리 뒤집어 놓음 (표지 뒷면이니까) */
+    backface-visibility: hidden; /* 뒤집으면 안 보임 */
     border: 1px solid #d7ccc8;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 10px 0 0 10px; /* 왼쪽 모서리 둥글게 */
+    box-shadow: inset -20px 0 30px rgba(0,0,0,0.05); /* 책 안쪽 그림자 */
 }
 
-/* 왼쪽 페이지 (앞표지 뒷면에 붙어있음 등) -> 여기선 바닥에 고정 */
-.page.left {
-    z-index: 5;
-    background: linear-gradient(to right, #e0d8c0, #fffbf0 20%); /* 그림자 효과 */
-}
-
-/* 오른쪽 페이지 (신약) -> 책이 열리면 드러남 */
-.page.right {
-    z-index: 4; /* 왼쪽 페이지 아래에 숨어있다가 */
-    background: linear-gradient(to left, #e0d8c0, #fffbf0 20%);
-    
-    /* 중요: 오른쪽 페이지는 앞표지와 함께 움직이지 않고, 바닥에 고정 */
-    /* 다만 책이 열리는 효과를 위해, 실제로는 '표지'만 돌아가고 
-       왼쪽/오른쪽 페이지가 나란히 보이는 구조로 만듭니다. */
-}
-
-/* 수정: 1페이지 책 넘김 효과를 위해 
-   왼쪽 페이지는 사실 앞표지의 뒷면이어야 자연스럽습니다.
-   하지만 구현을 쉽게 하기 위해, 표지가 열리면 
-   '왼쪽 페이지'와 '오른쪽 페이지'가 나란히 나타나도록 배치합니다. */
-
-/* 모바일/태블릿 대응 */
-@media (max-width: 768px) {
-    .scene {
-        width: 300px;
-        height: 450px;
-    }
-}
-
-/* 링크 스타일 */
+/* 내용물 스타일 */
 a {
     text-decoration: none;
     color: #333;
-    border-bottom: 1px solid #b71c1c;
-    padding-bottom: 5px;
     font-weight: bold;
-    font-size: 1.2rem;
-    display: inline-block;
-    margin-top: 10px;
-    transition: color 0.3s;
+    display: block;
+    margin-top: 20px;
+    padding: 10px;
+    border-bottom: 1px solid transparent;
+    transition: all 0.3s;
 }
-a:hover { color: #b71c1c; }
+a:hover { color: #b71c1c; border-bottom: 1px solid #b71c1c; }
 h2 { color: #5d4037; margin-bottom: 5px; }
-.chapter { font-size: 0.9rem; color: #888; font-weight: normal;}
+.chapter { font-size: 0.9rem; color: #888; font-weight: normal; }
 .pg-num { position: absolute; bottom: 20px; font-size: 0.8rem; color: #aaa; }
