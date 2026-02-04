@@ -1,0 +1,158 @@
+/* 1. 전체 분위기 설정 */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Nanum Myeongjo', serif; /* 명조체 */
+    background-color: #e8e0d5; /* 따뜻한 책상 색깔 */
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.desk {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    perspective: 1000px; /* 3D 원근감 효과 */
+}
+
+/* 2. 성경책 외형 (가죽 커버 느낌) */
+.bible-book {
+    display: flex;
+    width: 90%;
+    max-width: 800px; /* 책 최대 크기 */
+    height: 500px; /* 책 높이 */
+    background-color: #3e2723; /* 진한 갈색 가죽색 */
+    padding: 15px; /* 가죽 테두리 두께 */
+    border-radius: 10px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3); /* 책상 그림자 */
+    position: relative;
+}
+
+/* 3. 종이 페이지 공통 설정 */
+.page {
+    flex: 1; /* 반반 나눠 갖기 */
+    background-color: #fffbf0; /* 오래된 종이 색 (미색) */
+    padding: 40px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* 왼쪽 페이지 디자인 */
+.page.left-page {
+    border-radius: 5px 0 0 5px;
+    /* 오른쪽(가운데)으로 갈수록 어두워지는 그림자 (굴곡 표현) */
+    background: linear-gradient(to right, #fffbf0 85%, #e0d8c0 100%);
+    border-right: 1px solid #d7ccc8;
+}
+
+/* 오른쪽 페이지 디자인 */
+.page.right-page {
+    border-radius: 0 5px 5px 0;
+    /* 왼쪽(가운데)이 어두운 그림자 */
+    background: linear-gradient(to left, #fffbf0 85%, #e0d8c0 100%);
+    border-left: 1px solid #d7ccc8;
+}
+
+/* 4. 빨간색 책갈피 끈 (포인트) */
+.bookmark {
+    position: absolute;
+    top: 0;
+    left: 50%; /* 책 정중앙 */
+    width: 20px;
+    height: 100%;
+    background-color: rgba(0,0,0,0.1); /* 책등 그림자 */
+    z-index: 10;
+    transform: translateX(-50%);
+}
+
+.bookmark::after {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    width: 4px; /* 끈 두께 */
+    height: 400px; /* 끈 길이 */
+    background-color: #b71c1c; /* 빨간색 */
+    transform: translateX(-50%) rotate(-5deg); /* 살짝 삐뚤어지게 */
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}
+
+/* 5. 텍스트 및 링크 스타일 */
+h2 {
+    font-size: 1.8rem;
+    color: #5d4037;
+    margin-bottom: 40px;
+    text-align: center;
+    border-bottom: 2px solid #5d4037;
+    padding-bottom: 10px;
+    letter-spacing: 2px;
+}
+
+.verse-link {
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.verse-link a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+    padding: 10px;
+    transition: transform 0.2s;
+}
+
+.verse-link a:hover {
+    transform: scale(1.05); /* 마우스 올리면 살짝 커짐 */
+    color: #b71c1c; /* 빨간색으로 변함 */
+}
+
+.chapter {
+    display: block;
+    font-size: 0.9rem;
+    color: #8d6e63;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.title {
+    font-size: 1.4rem;
+    font-weight: 800;
+}
+
+/* 비활성화된 메뉴 (준비중) */
+.verse-link.disabled {
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+.footer-text {
+    margin-top: 30px;
+    color: #8d6e63;
+    font-size: 0.8rem;
+}
+
+/* 모바일/태블릿 세로 모드 대응 */
+@media (max-width: 768px) {
+    .bible-book {
+        flex-direction: column; /* 위아래로 쌓임 */
+        height: auto;
+    }
+    .page.left-page {
+        border-radius: 5px 5px 0 0;
+        border-bottom: 1px solid #ccc;
+        background: #fffbf0;
+    }
+    .page.right-page {
+        border-radius: 0 0 5px 5px;
+        background: #fffbf0;
+    }
+    .bookmark::after {
+        display: none; /* 모바일에서는 끈 숨기기 */
+    }
+}
