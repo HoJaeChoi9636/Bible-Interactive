@@ -1,5 +1,6 @@
 // 1. PageFlip 라이브러리 초기화
-const pageFlip = new Stanko.PageFlip(document.getElementById('bible-book'), {
+// Stanko 대신 PageFlip.PageFlip 사용
+const pageFlip = new PageFlip.PageFlip(document.getElementById('bible-book'), {
     width: 400, // 한 페이지의 너비
     height: 600, // 한 페이지의 높이
     size: 'fixed', // 고정 크기
